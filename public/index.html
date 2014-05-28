@@ -7,12 +7,27 @@
 <body ng-app="booksApp">
 
     <div ng-controller="MainCtrl">
+        <hr>
+        <div>
+            <input ng-model="selectedBook.title">
+            <input ng-model="selectedBook.description">
+            <div>
+                <select id="inputType"
+                        ng-model="selectedBook.level"
+                        ng-options="level for level in levels"></select>
+            </div>
+        </div>
+        <hr>
+
         <h2>Livres</h2>
-        <div ng-repeat="book in books">
+        <div ng-repeat="book in books" ng-click="selectBook(book)">
             <h4>{{book.title}}</h4>
             <p>{{book.description}} - Niveau <b>{{book.level}}</b></p>
-            <hr />
+            <hr>
         </div>
+
+        <a href="#" ng-click="createBook()">Ajouter un livre</a>
+        <hr>
     </div>
 
     <script src="bower_components/angular/angular.min.js"></script>

@@ -18,4 +18,22 @@ var MainCtrl = booksApp.controller("MainCtrl", function($scope) {
             level: "débutant"
         }
     ];
+
+    $scope.levels = [
+        "très bon", "bon", "débutant"
+    ];
+
+    $scope.selectedBook = null;
+
+    $scope.selectBook = function(book) {
+        $scope.selectedBook = book;
+    };
+
+    $scope.createBook = function() {
+        $scope.books.push({
+            title: "This is a new book",
+            description: "...",
+            level: "???"
+        });
+    };
 });
