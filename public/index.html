@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <title>Livres</title>
 </head>
-<body>
+<body ng-app="booksApp">
 
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="js/main.js"></script>
+    <div ng-controller="MainCtrl">
+        <h2>Livres</h2>
+        <div ng-repeat="book in books">
+            <h4>{{book.title}}</h4>
+            <p>{{book.description}} - Niveau <b>{{book.level}}</b></p>
+            <hr />
+        </div>
+    </div>
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 </html>
