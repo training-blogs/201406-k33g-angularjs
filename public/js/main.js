@@ -1,46 +1,26 @@
 var booksApp = angular.module("booksApp", []);
 
-booksApp.controller("MainCtrl", function($scope, Models) {
-
-    $scope.books = Models.books();
+booksApp.controller("MainCtrl", function($scope, $http, Models) {
+    $scope.books = null;
     $scope.levels = Models.levels();
 
-    $scope.selectedBook = null;
-
-    $scope.selectBook = function(book) {
-        $scope.selectedBook = book;
-    };
-
-    $scope.createBook = function() {
-        $scope.books.push({
-            title: "This is a new book",
-            description: "...",
-            level: "???"
+    $scope.getAllBooks = function() {
+        $http.get("books").success(function(data) {
+            $scope.books = data;
         });
     };
+
+    $scope.createBook = function(book) {
+        $http.post("books", book).success(function(data){
+            $scope.getAllBooks();
+            $scope.book = null;
+        });
+    };
+
+    $scope.getAllBooks();
 });
 
 booksApp.factory("Models", function() {
-    var books = function() {
-        return [
-            {
-                title: "Backbone c'est de la balle",
-                description: "tutorial bb",
-                level: "très bon"
-            },
-            {
-                title: "React ça dépote",
-                description: "se perfectionner avec React",
-                level: "bon"
-            },
-            {
-                title: "J'apprends Angular",
-                description: "from scratch",
-                level: "débutant"
-            }
-        ];
-    };
-
     var levels = function() {
         return [
             "très bon", "bon", "débutant"
@@ -48,7 +28,6 @@ booksApp.factory("Models", function() {
     };
 
     return {
-        books: books,
         levels: levels
     }
 });
